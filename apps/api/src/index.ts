@@ -2,8 +2,8 @@ import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
 
 const countryMap = {
-  US: 'example-protect-geo.railway.internal',
-  AU: 'example-protect-geo.railway.internal',
+  US: 'protect-server-usa.railway.internal',
+  AU: 'protect-server-au.railway.internal',
 }
 
 const app = new Hono()
