@@ -1,0 +1,7 @@
+packages:
+  - "packages/*"
+  - "apps/*"
+
+catalogs:
+  repo:
+    typescript: 5.7.3

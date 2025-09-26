@@ -1,0 +1,31 @@
+{
+  "name": "example-protect-geo",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "turbo run build",
+    "clean": "rimraf --glob **/.turbo **/dist **/node_modules",
+    "code:check": "biome check . & pnpm run sort-manifests --check",
+    "code:fix": "biome check --write --config-path ./biome.json . & pnpm run sort-manifests",
+    "dev": "turbo run dev",
+    "generate:link": "tsx scripts/generate-link.ts",
+    "sort-manifests": "sort-package-json package.json",
+    "start:api": "pnpm --filter api start"
+  },
+  "dependencies": {
+    "turbo": "2.5.5"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.8.3",
+    "rimraf": "6.0.1",
+    "sort-package-json": "2.10.0",
+    "tsx": "^4.19.2"
+  },
+  "peerDependencies": {
+    "typescript": "catalog:repo"
+  },
+  "packageManager": "pnpm@10.14.0",
+  "engines": {
+    "node": ">=22.11"
+  }
+}

@@ -1,0 +1,10 @@
+node_modules
+.turbo
+dist
+.env
+.env.production
+.env.development
+.env.test
+.env.production
+.env.development
+.env.test
