@@ -5,9 +5,11 @@ const app = new Hono()
 
 app.get('/', (c) => {
   const geoCountry = c.req.header('CF-IPCountry')
+  const item = c.req.query('item')
 
+  console.log('Item: ', item)
   console.log('Request received from: ', geoCountry)
-  return c.json({ message: 'Hello World', geoCountry })
+  return c.json({ message: 'Hello World', geoCountry, item })
 })
 
 serve(

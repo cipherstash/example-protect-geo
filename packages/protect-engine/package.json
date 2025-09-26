@@ -1,0 +1,23 @@
+{
+  "name": "protect-engine",
+  "type": "module",
+  "scripts": {
+    "dev": "tsup --watch",
+    "build": "tsup"
+  },
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "dependencies": {
+    "@cipherstash/protect": "^9.6.0",
+    "@hono/node-server": "^1.19.4",
+    "dotenv": "^17.2.2",
+    "hono": "^4.9.8",
+    "tsup": "^8.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.17",
+    "tsx": "^4.7.1",
+    "typescript": "^5.8.3"
+  }
+}
