@@ -1,41 +1,43 @@
 # CipherStash ZeroKMS Geo-Protection Demo
 
-This application demonstrates the power of **CipherStash ZeroKMS composability** by routing sensitive data to different infrastructure services based on the user's geographic location. Each country's data is processed by infrastructure within that region, ensuring data sovereignty and compliance with local regulations.
+This application demonstrates the power of **CipherStash ZeroKMS capabilities** by routing sensitive data to different protect servers configured for specific ZeroKMS regions based on the user's geographic location. Each country's data is encrypted using region-specific ZeroKMS workspaces, ensuring data sovereignty and compliance with local regulations.
 
 ## 🌍 Key Benefits Demonstrated
 
-- **Data Sovereignty**: Each country's data is processed by infrastructure within that region
+- **Data Sovereignty**: Each country's data is encrypted using region-specific ZeroKMS workspaces
 - **Compliance**: Meets regional data protection requirements (GDPR, CCPA, etc.)
-- **ZeroKMS Composability**: Different encryption keys and infrastructure per country
-- **Fault Isolation**: Issues in one region don't affect others
-- **Scalability**: Each region can scale independently
+- **ZeroKMS Composability**: Different encryption keys and ZeroKMS regions per country
+- **Fault Isolation**: Issues in one ZeroKMS region don't affect others
+- **Scalability**: Each ZeroKMS region can scale independently
 
 ## 🏗️ Architecture
 
 ```
-User Request → API (Geo-Detection) → Country-Specific Protect Server → CipherStash Encryption
+User Request → API (Geo-Detection) → Country-Specific Protect Server → ZeroKMS Region-Specific Encryption
 ```
 
-### Current Regions
-- **US**: `protect-server-usa.railway.internal`
-- **AU**: `protect-server-au.railway.internal`
-- **Local Development**: `localhost`
+### Current ZeroKMS Regions
+- **US**: `protect-server-usa.railway.internal` (configured for US ZeroKMS workspace)
+- **AU**: `protect-server-au.railway.internal` (configured for AU ZeroKMS workspace)
+- **Local Development**: `localhost` (configured for local ZeroKMS workspace)
 
-## 🚀 Adding New Regions/Countries
+## 🚀 Adding New ZeroKMS Regions/Countries
 
-Adding a new region is incredibly simple with CipherStash ZeroKMS composability:
+Adding a new ZeroKMS region is incredibly simple with CipherStash ZeroKMS composability:
 
-### 1. Deploy a New Protect Server
-Deploy a new protect server in your target region with region-specific CipherStash environment variables:
+### 1. Create a New ZeroKMS Workspace
+Create a new CipherStash workspace in your target region (e.g., EU, Asia, etc.)
+
+### 2. Deploy a New Protect Server
+Deploy a new protect server (can be in the same infrastructure) configured with the new ZeroKMS workspace:
 
 ```bash
-# Example for EU region
-CIPHERSTASH_API_KEY=your_eu_api_key
-CIPHERSTASH_API_URL=your_eu_api_url
-CIPHERSTASH_WORKSPACE_ID=your_eu_workspace_id
+# Example for AU ZeroKMS region
+CS_WORKSPACE_CRN=crn:ap-southeast-2.aws:workspace_id
+...
 ```
 
-### 2. Update Country Mapping
+### 3. Update Country Mapping
 Add your new region to the country mapping in `apps/api/src/index.ts`:
 
 ```typescript
@@ -43,12 +45,12 @@ const countryMap = {
   US: 'protect-server-usa.railway.internal',
   AU: 'protect-server-au.railway.internal',
   EU: 'protect-server-eu.railway.internal',  // ← Just add this line!
-  // Add as many regions as needed...
+  // Add as many ZeroKMS regions as needed...
 }
 ```
 
-### 3. Deploy and Test
-That's it! Your new region is now live and will automatically route users from that country to the appropriate infrastructure.
+### 4. Deploy and Test
+That's it! Your new ZeroKMS region is now live and will automatically route users from that country to the appropriate ZeroKMS workspace.
 
 ## 🔧 Development
 
@@ -83,21 +85,21 @@ The API returns a comprehensive response highlighting the ZeroKMS benefits:
 {
   "message": "CipherStash ZeroKMS Geo-Protection Demo",
   "benefits": {
-    "dataSovereignty": "Data processed in US infrastructure",
+    "dataSovereignty": "Data encrypted using US ZeroKMS workspace",
     "compliance": "Meets US data protection requirements", 
-    "zeroKMSComposability": "Encrypted with US-specific keys",
-    "faultIsolation": "Independent infrastructure for US region",
-    "scalability": "Region-specific scaling for US"
+    "zeroKMSComposability": "Encrypted with US-specific ZeroKMS keys",
+    "faultIsolation": "Independent ZeroKMS region for US",
+    "scalability": "ZeroKMS region-specific scaling for US"
   },
   "routing": {
     "detectedCountry": "US",
     "protectServer": "protect-server-usa.railway.internal",
-    "infrastructure": "US Railway Infrastructure"
+    "zeroKMSRegion": "US ZeroKMS Workspace"
   },
   "encryption": {
     "originalItem": "your-sensitive-data",
     "encryptedItem": "encrypted-data-here",
-    "encryptionRegion": "US"
+    "zeroKMSRegion": "US"
   }
 }
 ```
@@ -105,10 +107,10 @@ The API returns a comprehensive response highlighting the ZeroKMS benefits:
 ## 🎯 Perfect for Demos
 
 This application is designed to showcase:
-- How easy it is to add new regions (just 1 line of code!)
-- The power of CipherStash ZeroKMS composability
+- How easy it is to add new ZeroKMS regions (just 1 line of code!)
+- The power of CipherStash ZeroKMS composability with region-specific workspaces
 - Real-world data sovereignty and compliance benefits
-- Seamless user experience across different regions
+- Seamless user experience across different ZeroKMS regions
 
 ## 📁 Project Structure
 

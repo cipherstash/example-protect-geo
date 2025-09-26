@@ -33,29 +33,29 @@ app.get('/', async (c) => {
   return c.json({
     message: 'CipherStash ZeroKMS Geo-Protection Demo',
     benefits: {
-      dataSovereignty: `Data processed in ${geoCountry || 'local'} infrastructure`,
+      dataSovereignty: `Data encrypted using ${geoCountry || 'local'} ZeroKMS workspace`,
       compliance: `Meets ${geoCountry || 'local'} data protection requirements`,
-      zeroKMSComposability: `Encrypted with ${geoCountry || 'local'}-specific keys`,
-      faultIsolation: `Independent infrastructure for ${geoCountry || 'local'} region`,
-      scalability: `Region-specific scaling for ${geoCountry || 'local'}`,
+      zeroKMSComposability: `Encrypted with ${geoCountry || 'local'}-specific ZeroKMS keys`,
+      faultIsolation: `Independent ZeroKMS region for ${geoCountry || 'local'}`,
+      scalability: `ZeroKMS region-specific scaling for ${geoCountry || 'local'}`,
     },
     routing: {
       detectedCountry: geoCountry || 'local development',
       protectServer: protectServer,
-      infrastructure: geoCountry
-        ? `${geoCountry} Railway Infrastructure`
-        : 'Local Development',
+      zeroKMSRegion: geoCountry
+        ? `${geoCountry} ZeroKMS Workspace`
+        : 'Local ZeroKMS Workspace',
     },
     encryption: {
       originalItem: item,
       encryptedItem: protectedItemData.encryptedItem,
-      encryptionRegion: geoCountry || 'local',
+      zeroKMSRegion: geoCountry || 'local',
     },
     demo: {
       message:
-        'This demonstrates how CipherStash ZeroKMS enables data sovereignty',
+        'This demonstrates how CipherStash ZeroKMS enables data sovereignty through region-specific workspaces',
       nextSteps:
-        'Try changing your location to see different infrastructure routing!',
+        'Try changing your location to see different ZeroKMS region routing!',
     },
   })
 })
