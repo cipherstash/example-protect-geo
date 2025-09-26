@@ -1,15 +1,37 @@
 import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
 
+const countryMap = {
+  US: 'example-protect-geo.railway.internal',
+  AU: 'example-protect-geo.railway.internal',
+}
+
 const app = new Hono()
 
-app.get('/', (c) => {
+app.get('/', async (c) => {
   const geoCountry = c.req.header('CF-IPCountry')
   const item = c.req.query('item')
 
-  console.log('Item: ', item)
-  console.log('Request received from: ', geoCountry)
-  return c.json({ message: 'Hello World', geoCountry, item })
+  const protectServer = geoCountry
+    ? countryMap[geoCountry as keyof typeof countryMap] || countryMap.US
+    : 'localhost'
+
+  const protectedItem = await fetch(
+    `http://${protectServer}:3001/encrypt?item=${item}`,
+  )
+
+  if (!protectedItem.ok) {
+    return c.json({ error: 'Failed to encrypt item' }, 500)
+  }
+
+  const protectedItemData = await protectedItem.json()
+
+  return c.json({
+    message: 'Hello World',
+    geoCountry: geoCountry || 'local development',
+    item,
+    encrypted: protectedItemData.encryptedItem,
+  })
 })
 
 serve(
