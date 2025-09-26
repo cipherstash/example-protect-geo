@@ -1,5 +1,6 @@
 import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
+import { basicAuth } from 'hono/basic-auth'
 
 const countryMap = {
   US: 'protect-server-usa.railway.internal',
@@ -7,6 +8,16 @@ const countryMap = {
 }
 
 const app = new Hono()
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(
+    '/auth/*',
+    basicAuth({
+      username: 'cipherstash',
+      password: `${process.env.CIPHERSTASH_PASSWORD}`,
+    }),
+  )
+}
 
 app.get('/', async (c) => {
   const geoCountry = c.req.header('CF-IPCountry')
