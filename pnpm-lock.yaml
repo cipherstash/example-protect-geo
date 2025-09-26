@@ -53,7 +53,7 @@ importers:
         specifier: ^5.8.3
         version: 5.9.2
 
-  apps/protect-usa:
+  apps/protect-server:
     dependencies:
       protect-engine:
         specifier: workspace:*

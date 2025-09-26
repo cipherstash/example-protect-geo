@@ -10,7 +10,8 @@
     "dev": "turbo run dev",
     "generate:link": "tsx scripts/generate-link.ts",
     "sort-manifests": "sort-package-json package.json",
-    "start:api": "pnpm --filter api start"
+    "start:api": "pnpm --filter api start",
+    "start:protect-server": "pnpm --filter protect-server start"
   },
   "dependencies": {
     "turbo": "2.5.5"
