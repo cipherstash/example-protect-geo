@@ -12,6 +12,10 @@ app.get('/', async (c) => {
   const geoCountry = c.req.header('CF-IPCountry')
   const item = c.req.query('item')
 
+  if (!item) {
+    return c.json({ error: 'Item query parameter is required' }, 400)
+  }
+
   const protectServer = geoCountry
     ? countryMap[geoCountry as keyof typeof countryMap] || countryMap.US
     : 'localhost'
@@ -27,10 +31,32 @@ app.get('/', async (c) => {
   const protectedItemData = await protectedItem.json()
 
   return c.json({
-    message: 'Hello World',
-    geoCountry: geoCountry || 'local development',
-    item,
-    encrypted: protectedItemData.encryptedItem,
+    message: 'CipherStash ZeroKMS Geo-Protection Demo',
+    benefits: {
+      dataSovereignty: `Data processed in ${geoCountry || 'local'} infrastructure`,
+      compliance: `Meets ${geoCountry || 'local'} data protection requirements`,
+      zeroKMSComposability: `Encrypted with ${geoCountry || 'local'}-specific keys`,
+      faultIsolation: `Independent infrastructure for ${geoCountry || 'local'} region`,
+      scalability: `Region-specific scaling for ${geoCountry || 'local'}`,
+    },
+    routing: {
+      detectedCountry: geoCountry || 'local development',
+      protectServer: protectServer,
+      infrastructure: geoCountry
+        ? `${geoCountry} Railway Infrastructure`
+        : 'Local Development',
+    },
+    encryption: {
+      originalItem: item,
+      encryptedItem: protectedItemData.encryptedItem,
+      encryptionRegion: geoCountry || 'local',
+    },
+    demo: {
+      message:
+        'This demonstrates how CipherStash ZeroKMS enables data sovereignty',
+      nextSteps:
+        'Try changing your location to see different infrastructure routing!',
+    },
   })
 })
 
